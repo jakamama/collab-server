@@ -38,6 +38,28 @@ app.get('/add_group', function (req, res) {
 
 });
 
+app.get('/add_user', function (req, res) {
+  //should probably check user session key to make sure logged in
+  var url = require('url');
+  var url_parts = url.parse(req.url, true);
+  var query = url_parts.query;
+  console.log("asked for a GET", query)
+  var nano = require('nano')('http://admin:jakamama@jakamama.iriscouch.com/');
+  //creating new db for group
+  res.set('Access-Control-Allow-Origin', '*');
+  nano.db.create(query.name, function(err, body) {
+    if (!err) {
+      console.log('database ' + query.name + ' created!');
+      res.status(200).send('Yay!');
+    }
+    else{
+      res.status(200).send('Fuckayou!');
+    }
+  });
+
+
+});
+
 app.post('/', function (req, res) {
   console.log("asked for POST", req)
 });
