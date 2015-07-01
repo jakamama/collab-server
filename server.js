@@ -60,8 +60,8 @@ app.get('/add_user', function (req, res) {
 
 });
 
-app.post('/', function (req, res) {
-  console.log("asked for POST", req)
+app.get('/test', function (req, res) {
+  res.status(200).send('Yay!');
 });
 
 //http://localhost:8080/?name=lala&user=jay
