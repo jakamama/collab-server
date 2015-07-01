@@ -3,7 +3,6 @@ var app = express();
 var server = require('http').Server(app);
 var path = require('path');
 var url = require('url');
-var http = require('http');
 var request = require('request');
 var nano = require('nano');
 

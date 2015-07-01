@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "express": "~4.9.x",
-    "nano": ""
+    "nano": "",
+    "request":"",
   },  
   "repository": {
     "type": "git",
