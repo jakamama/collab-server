@@ -10,7 +10,7 @@
   "dependencies": {
     "express": "~4.9.x",
     "nano": "",
-    "request":"",
+    "request":""
   },  
   "repository": {
     "type": "git",
