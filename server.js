@@ -6,7 +6,7 @@ var url = require('url');
 var request = require('request');
 var nano = require('nano');
 
-server.listen(8080);
+server.listen(process.env.PORT || 8080);
 
 app.get('/add_group', function (req, res) {
   //should probably check user session key to make sure logged in
