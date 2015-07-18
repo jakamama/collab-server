@@ -16,7 +16,22 @@ app.get('/add_group', function (req, res) {
   console.log("asked for a GET", query)
   var nano = require('nano')('http://admin:jakamama@jakamama.iriscouch.com/');
   //creating new db for group
-  nano.db.create(query.name);
+  nano.db.create(query.name, function(err, body) {
+    if (!err) {
+      console.log('created a db group going to add group to the creator')
+      var userDB = nano.use(query.user)
+      userDB.list({include_docs: true},function(err,body){
+        console.log("first doc", body.rows[0].doc)
+        var groupsDoc = body.rows[0].doc
+        groupsDoc.groups.push( { id:3,  name:query.name} )
+        userDB.insert( groupsDoc, groupsDoc.id)
+    }else{
+      console.log('failed in trying to create group')
+    }
+
+  });
+
+
   
   // request.put("http://admin:jakamama@jakamama.iriscouch.com/" + query.name, function (error, response, body) {
   //   if (!error && response.statusCode == 200) {
@@ -26,15 +41,6 @@ app.get('/add_group', function (req, res) {
   //TODO need to set the user as the admin user on the group so noone else can access
 
   //adding the group to the users list - actually this could be done in front end
-  // var userDB = nano.use(query.user)
-  // userDB.list({include_docs: true},function(err,body){
-  //   console.log("first doc", body.rows[0].doc)
-  //   var groupsDoc = body.rows[0].doc
-  //   groupsDoc.groups.push( { id:3,  name:query.name} )
-  //   userDB.insert( groupsDoc, groupsDoc.id)  
-  // });
-
-
 });
 
 app.get('/add_user', function (req, res) {
