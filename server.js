@@ -28,10 +28,11 @@ app.get('/add_group', function (req, res) {
           if(!err){
             res.status(200).send('Yay!');
           }else{
-            res.status(500).send('Fuckayou!')
+            res.status(500).send('Fuckayou!');
           }
-        })
-    }else{
+        });
+      });
+    } else{
       console.log('failed in trying to create group')
       res.status(500).send('Fuckayou!')
     }
@@ -63,8 +64,7 @@ app.get('/add_user', function (req, res) {
     if (!err) {
       console.log('database ' + query.name + ' created!');
       res.status(200).send('Yay!');
-    }
-    else{
+    }else{
       res.status(500).send('Fuckayou!');
     }
   });
