@@ -24,9 +24,16 @@ app.get('/add_group', function (req, res) {
         console.log("first doc", body.rows[0].doc)
         var groupsDoc = body.rows[0].doc
         groupsDoc.groups.push( { id:3,  name:query.name} )
-        userDB.insert( groupsDoc, groupsDoc.id)
+        userDB.insert( groupsDoc, groupsDoc.id, function(err,body){
+          if(!err){
+            res.status(200).send('Yay!');
+          }else{
+            res.status(500).send('Fuckayou!')
+          }
+        })
     }else{
       console.log('failed in trying to create group')
+      res.status(500).send('Fuckayou!')
     }
 
   });
@@ -58,7 +65,7 @@ app.get('/add_user', function (req, res) {
       res.status(200).send('Yay!');
     }
     else{
-      res.status(200).send('Fuckayou!');
+      res.status(500).send('Fuckayou!');
     }
   });
 
